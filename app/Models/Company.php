@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\CashRegisters\CashRegister;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -89,6 +90,11 @@ class Company extends Model
     public function personals(): HasMany
     {
         return $this->hasMany(Personal::class);
+    }
+
+    public function cashRegisters(): HasMany
+    {
+        return $this->hasMany(CashRegister::class);
     }
 
     /**

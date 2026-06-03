@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\CashRegisters\CashRegister;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -33,8 +34,8 @@ class Branch extends Model
         return $this->belongsTo(Company::class);
     }
 
-    public function cajas(): HasMany
+    public function cashRegisters(): HasMany
     {
-        return $this->hasMany(Caja::class);
+        return $this->hasMany(CashRegister::class);
     }
 }

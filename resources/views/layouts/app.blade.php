@@ -65,7 +65,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link app-link {{ request()->routeIs('cajas.*') ? 'active' : '' }}" href="{{ route('cajas.index') }}">
+                <a class="nav-link app-link {{ request()->routeIs('cash-registers.*') ? 'active' : '' }}" href="{{ route('cash-registers.index') }}">
                     <i class="bi bi-safe"></i> Cajas
                 </a>
             </li>
@@ -108,6 +108,35 @@
                 </div>
 
                 <div class="d-flex align-items-center gap-2">
+                    @php
+                        $currentCompany = auth()->user()->getCurrentCompany();
+                        $activeCashSession = null;
+                        if ($currentCompany) {
+                            $activeCashSession = \App\Models\CashRegisters\CashSession::where('opened_by', auth()->id())
+                                ->where('status', 'open')
+                                ->whereHas('cashRegister', fn($q) => $q->where('company_id', $currentCompany->id))
+                                ->first();
+                        }
+                    @endphp
+
+                    @if($activeCashSession)
+                        <div class="dropdown">
+                            <button class="btn btn-icon btn-session-active" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Sesión de caja abierta">
+                                <i class="bi bi-safe"></i>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end shadow border-0 small">
+                                <li><span class="dropdown-item-text text-muted fw-bold">{{ $activeCashSession->cashRegister->name }}</span></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><span class="dropdown-item-text">Monto inicial: ${{ number_format($activeCashSession->opening_amount, 2) }}</span></li>
+                                <li><span class="dropdown-item-text text-muted small">Abierta a las {{ $activeCashSession->opened_at->format('H:i') }}</span></li>
+                            </ul>
+                        </div>
+                    @else
+                        <button class="btn btn-icon" type="button" title="Sin sesión de caja" disabled>
+                            <i class="bi bi-safe"></i>
+                        </button>
+                    @endif
+
                     <div class="dropdown">
                         <button class="btn btn-icon" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="bi bi-person-circle"></i>
@@ -178,7 +207,7 @@
                 <li><a class="nav-link app-link {{ request()->routeIs('cargos.*') ? 'active' : '' }}" href="{{ route('cargos.index') }}">Cargos</a></li>
                 <li><a class="nav-link app-link {{ request()->routeIs('personal.*') ? 'active' : '' }}" href="{{ route('personal.index') }}">Personal</a></li>
                 <li><a class="nav-link app-link {{ request()->routeIs('branches.*') ? 'active' : '' }}" href="{{ route('branches.index') }}">Sucursales</a></li>
-                <li><a class="nav-link app-link {{ request()->routeIs('cajas.*') ? 'active' : '' }}" href="{{ route('cajas.index') }}">Cajas</a></li>
+                <li><a class="nav-link app-link {{ request()->routeIs('cash-registers.*') ? 'active' : '' }}" href="{{ route('cash-registers.index') }}">Cajas</a></li>
             </ul>
         </nav>
     </div>
@@ -315,6 +344,23 @@
     .btn-logout:hover {
         background: #363636;
         color: #fff;
+    }
+
+    .btn-session-active {
+        background: #2d5016 !important;
+        border-color: #3a6b1f !important;
+        color: #a3d977 !important;
+        animation: pulse-green 2s infinite;
+    }
+
+    .btn-session-active:hover {
+        background: #3a6b1f !important;
+        color: #c4e89f !important;
+    }
+
+    @keyframes pulse-green {
+        0%, 100% { opacity: 1; }
+        50% { opacity: 0.8; }
     }
 
     @media (max-width: 991.98px) {
