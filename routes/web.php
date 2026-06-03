@@ -3,7 +3,6 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\BranchController;
-use App\Http\Controllers\Admin\CajaController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
@@ -92,16 +91,6 @@ Route::middleware('auth')->group(function () {
         Route::get('/{branch}/edit', [BranchController::class, 'edit'])->name('edit');
         Route::put('/{branch}', [BranchController::class, 'update'])->name('update');
         Route::delete('/{branch}', [BranchController::class, 'destroy'])->name('destroy');
-    });
-
-    // Cajas
-    Route::prefix('admin/cajas')->name('cajas.')->group(function () {
-        Route::get('/', [CajaController::class, 'index'])->name('index');
-        Route::get('/create', [CajaController::class, 'create'])->name('create');
-        Route::post('/', [CajaController::class, 'store'])->name('store');
-        Route::get('/{caja}/edit', [CajaController::class, 'edit'])->name('edit');
-        Route::put('/{caja}', [CajaController::class, 'update'])->name('update');
-        Route::delete('/{caja}', [CajaController::class, 'destroy'])->name('destroy');
     });
 });
 

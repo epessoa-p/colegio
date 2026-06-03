@@ -54,20 +54,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
-            <div class="kpi-card">
-                <div class="kpi-body">
-                    <div>
-                        <div class="kpi-value">{{ $totalCajas }}</div>
-                        <div class="kpi-label">Cajas</div>
-                        <div class="kpi-trend text-muted"><i class="bi bi-safe"></i> Registradas</div>
-                    </div>
-                    <div class="kpi-icon" style="background: #0288d1;">
-                        <i class="bi bi-safe2"></i>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
 
     <div class="card border-0 shadow-sm">
