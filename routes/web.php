@@ -3,12 +3,13 @@
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Admin\BranchController;
-use App\Http\Controllers\Admin\CajaController;
 use App\Http\Controllers\Admin\CompanyController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\CargoController;
 use App\Http\Controllers\Admin\PersonalController;
+use App\Http\Controllers\Admin\CashRegisters\CashRegisterController;
+use App\Http\Controllers\Admin\CashRegisters\CashSessionController;
 use Illuminate\Support\Facades\Route;
 
 // Guest routes
@@ -94,14 +95,21 @@ Route::middleware('auth')->group(function () {
         Route::delete('/{branch}', [BranchController::class, 'destroy'])->name('destroy');
     });
 
-    // Cajas
-    Route::prefix('admin/cajas')->name('cajas.')->group(function () {
-        Route::get('/', [CajaController::class, 'index'])->name('index');
-        Route::get('/create', [CajaController::class, 'create'])->name('create');
-        Route::post('/', [CajaController::class, 'store'])->name('store');
-        Route::get('/{caja}/edit', [CajaController::class, 'edit'])->name('edit');
-        Route::put('/{caja}', [CajaController::class, 'update'])->name('update');
-        Route::delete('/{caja}', [CajaController::class, 'destroy'])->name('destroy');
+    // Cash Registers (Cajas)
+    Route::prefix('admin/cash-registers')->name('cash-registers.')->group(function () {
+        Route::get('/', [CashRegisterController::class, 'index'])->name('index');
+        Route::get('/create', [CashRegisterController::class, 'create'])->name('create');
+        Route::post('/', [CashRegisterController::class, 'store'])->name('store');
+        Route::get('/{cashRegister}/edit', [CashRegisterController::class, 'edit'])->name('edit');
+        Route::put('/{cashRegister}', [CashRegisterController::class, 'update'])->name('update');
+        Route::delete('/{cashRegister}', [CashRegisterController::class, 'destroy'])->name('destroy');
+    });
+
+    // Cash Sessions
+    Route::prefix('admin/cash-sessions')->name('cash-sessions.')->group(function () {
+        Route::post('/{cashRegister}/open', [CashSessionController::class, 'openSession'])->name('open');
+        Route::post('/{cashSession}/close', [CashSessionController::class, 'closeSession'])->name('close');
+        Route::get('/{cashSession}', [CashSessionController::class, 'show'])->name('show');
     });
 });
 
