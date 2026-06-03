@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use App\Models\Personal;
 use App\Models\Branch;
-use App\Models\Caja;
 
 class DashboardController extends Controller
 {
@@ -18,20 +17,17 @@ class DashboardController extends Controller
             $totalUsers    = User::count();
             $totalPersonal = Personal::count();
             $totalBranches = Branch::count();
-            $totalCajas    = 0; //  Caja::count();
         } else {
             $companyId     = $company?->id;
             $totalUsers    = User::whereHas('companies', fn($q) => $q->where('companies.id', $companyId))->count();
             $totalPersonal = Personal::where('company_id', $companyId)->count();
             $totalBranches = Branch::where('company_id', $companyId)->count();
-            $totalCajas    = 0; //  Caja::where('company_id', $companyId)->count();
         }
 
         return view('dashboard.index', compact(
             'totalUsers',
             'totalPersonal',
             'totalBranches',
-            'totalCajas',
             'company'
         ));
     }

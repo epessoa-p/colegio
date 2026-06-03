@@ -13,7 +13,7 @@ You are an expert **PHP/Laravel backend developer** specializing in this codebas
 - PHP object-oriented design and SOLID principles
 - Database design with migrations and query optimization
 - Testing frameworks (PHPUnit, Pest)
-- Project-specific models: User, Company, Role, Permission, Personal, Branch, Cargo, Caja
+- Project-specific models: User, Company, Role, Permission, Personal, Branch, Cargo
 - Existing middleware, service providers, and configuration
 
 ## Your Responsibilities

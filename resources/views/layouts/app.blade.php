@@ -64,11 +64,6 @@
                     <i class="bi bi-diagram-2"></i> Sucursales
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link app-link {{ request()->routeIs('cajas.*') ? 'active' : '' }}" href="{{ route('cajas.index') }}">
-                    <i class="bi bi-safe"></i> Cajas
-                </a>
-            </li>
         </ul>
     </aside>
 
@@ -178,7 +173,6 @@
                 <li><a class="nav-link app-link {{ request()->routeIs('cargos.*') ? 'active' : '' }}" href="{{ route('cargos.index') }}">Cargos</a></li>
                 <li><a class="nav-link app-link {{ request()->routeIs('personal.*') ? 'active' : '' }}" href="{{ route('personal.index') }}">Personal</a></li>
                 <li><a class="nav-link app-link {{ request()->routeIs('branches.*') ? 'active' : '' }}" href="{{ route('branches.index') }}">Sucursales</a></li>
-                <li><a class="nav-link app-link {{ request()->routeIs('cajas.*') ? 'active' : '' }}" href="{{ route('cajas.index') }}">Cajas</a></li>
             </ul>
         </nav>
     </div>

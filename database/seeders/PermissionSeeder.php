@@ -45,12 +45,6 @@ class PermissionSeeder extends Seeder
             ['name' => 'Crear Sucursales', 'slug' => 'branches.create', 'module' => 'branches'],
             ['name' => 'Editar Sucursales', 'slug' => 'branches.edit', 'module' => 'branches'],
             ['name' => 'Eliminar Sucursales', 'slug' => 'branches.delete', 'module' => 'branches'],
-
-            // Cajas
-            ['name' => 'Ver Cajas', 'slug' => 'cajas.view', 'module' => 'cajas'],
-            ['name' => 'Crear Cajas', 'slug' => 'cajas.create', 'module' => 'cajas'],
-            ['name' => 'Editar Cajas', 'slug' => 'cajas.edit', 'module' => 'cajas'],
-            ['name' => 'Eliminar Cajas', 'slug' => 'cajas.delete', 'module' => 'cajas'],
         ];
 
         foreach ($permissions as $permission) {
