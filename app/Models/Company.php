@@ -91,6 +91,36 @@ class Company extends Model
         return $this->hasMany(Personal::class);
     }
 
+    public function gestiones(): HasMany
+    {
+        return $this->hasMany(Gestion::class);
+    }
+
+    public function niveles(): HasMany
+    {
+        return $this->hasMany(Nivel::class);
+    }
+
+    public function grados(): HasMany
+    {
+        return $this->hasMany(Grado::class);
+    }
+
+    public function paralelos(): HasMany
+    {
+        return $this->hasMany(Paralelo::class);
+    }
+
+    public function materias(): HasMany
+    {
+        return $this->hasMany(Materia::class);
+    }
+
+    public function periodos(): HasMany
+    {
+        return $this->hasMany(Periodo::class);
+    }
+
     /**
      * Obtener el rol de un usuario dentro de esta empresa
      */

@@ -8,6 +8,12 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\CargoController;
 use App\Http\Controllers\Admin\PersonalController;
+use App\Http\Controllers\Admin\GestionController;
+use App\Http\Controllers\Admin\NivelController;
+use App\Http\Controllers\Admin\GradoController;
+use App\Http\Controllers\Admin\ParaleloController;
+use App\Http\Controllers\Admin\MateriaController;
+use App\Http\Controllers\Admin\PeriodoController;
 use Illuminate\Support\Facades\Route;
 
 // Guest routes
@@ -91,6 +97,68 @@ Route::middleware('auth')->group(function () {
         Route::get('/{branch}/edit', [BranchController::class, 'edit'])->name('edit');
         Route::put('/{branch}', [BranchController::class, 'update'])->name('update');
         Route::delete('/{branch}', [BranchController::class, 'destroy'])->name('destroy');
+    });
+
+    // ==================== ACADÉMICO ====================
+
+    // Gestión Escolar
+    Route::middleware('check-permission:gestiones.view')->prefix('admin/academico/gestiones')->name('gestiones.')->group(function () {
+        Route::get('/', [GestionController::class, 'index'])->name('index');
+        Route::get('/create', [GestionController::class, 'create'])->name('create');
+        Route::post('/', [GestionController::class, 'store'])->name('store');
+        Route::get('/{gestion}/edit', [GestionController::class, 'edit'])->name('edit');
+        Route::put('/{gestion}', [GestionController::class, 'update'])->name('update');
+        Route::delete('/{gestion}', [GestionController::class, 'destroy'])->name('destroy');
+    });
+
+    // Niveles
+    Route::middleware('check-permission:niveles.view')->prefix('admin/academico/niveles')->name('niveles.')->group(function () {
+        Route::get('/', [NivelController::class, 'index'])->name('index');
+        Route::get('/create', [NivelController::class, 'create'])->name('create');
+        Route::post('/', [NivelController::class, 'store'])->name('store');
+        Route::get('/{nivel}/edit', [NivelController::class, 'edit'])->name('edit');
+        Route::put('/{nivel}', [NivelController::class, 'update'])->name('update');
+        Route::delete('/{nivel}', [NivelController::class, 'destroy'])->name('destroy');
+    });
+
+    // Grados/Cursos
+    Route::middleware('check-permission:grados.view')->prefix('admin/academico/grados')->name('grados.')->group(function () {
+        Route::get('/', [GradoController::class, 'index'])->name('index');
+        Route::get('/create', [GradoController::class, 'create'])->name('create');
+        Route::post('/', [GradoController::class, 'store'])->name('store');
+        Route::get('/{grado}/edit', [GradoController::class, 'edit'])->name('edit');
+        Route::put('/{grado}', [GradoController::class, 'update'])->name('update');
+        Route::delete('/{grado}', [GradoController::class, 'destroy'])->name('destroy');
+    });
+
+    // Paralelos
+    Route::middleware('check-permission:paralelos.view')->prefix('admin/academico/paralelos')->name('paralelos.')->group(function () {
+        Route::get('/', [ParaleloController::class, 'index'])->name('index');
+        Route::get('/create', [ParaleloController::class, 'create'])->name('create');
+        Route::post('/', [ParaleloController::class, 'store'])->name('store');
+        Route::get('/{paralelo}/edit', [ParaleloController::class, 'edit'])->name('edit');
+        Route::put('/{paralelo}', [ParaleloController::class, 'update'])->name('update');
+        Route::delete('/{paralelo}', [ParaleloController::class, 'destroy'])->name('destroy');
+    });
+
+    // Materias
+    Route::middleware('check-permission:materias.view')->prefix('admin/academico/materias')->name('materias.')->group(function () {
+        Route::get('/', [MateriaController::class, 'index'])->name('index');
+        Route::get('/create', [MateriaController::class, 'create'])->name('create');
+        Route::post('/', [MateriaController::class, 'store'])->name('store');
+        Route::get('/{materia}/edit', [MateriaController::class, 'edit'])->name('edit');
+        Route::put('/{materia}', [MateriaController::class, 'update'])->name('update');
+        Route::delete('/{materia}', [MateriaController::class, 'destroy'])->name('destroy');
+    });
+
+    // Periodos
+    Route::middleware('check-permission:periodos.view')->prefix('admin/academico/periodos')->name('periodos.')->group(function () {
+        Route::get('/', [PeriodoController::class, 'index'])->name('index');
+        Route::get('/create', [PeriodoController::class, 'create'])->name('create');
+        Route::post('/', [PeriodoController::class, 'store'])->name('store');
+        Route::get('/{periodo}/edit', [PeriodoController::class, 'edit'])->name('edit');
+        Route::put('/{periodo}', [PeriodoController::class, 'update'])->name('update');
+        Route::delete('/{periodo}', [PeriodoController::class, 'destroy'])->name('destroy');
     });
 });
 

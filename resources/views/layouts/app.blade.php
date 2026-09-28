@@ -65,6 +65,31 @@
                 </a>
             </li>
         </ul>
+
+        @php
+            $academicLinks = [
+                ['perm' => 'gestiones.view', 'route' => 'gestiones', 'icon' => 'bi-calendar3', 'label' => 'Gestión Escolar'],
+                ['perm' => 'niveles.view', 'route' => 'niveles', 'icon' => 'bi-layers', 'label' => 'Niveles'],
+                ['perm' => 'grados.view', 'route' => 'grados', 'icon' => 'bi-mortarboard', 'label' => 'Grados/Cursos'],
+                ['perm' => 'paralelos.view', 'route' => 'paralelos', 'icon' => 'bi-columns', 'label' => 'Paralelos'],
+                ['perm' => 'materias.view', 'route' => 'materias', 'icon' => 'bi-book', 'label' => 'Materias'],
+                ['perm' => 'periodos.view', 'route' => 'periodos', 'icon' => 'bi-clock-history', 'label' => 'Periodos'],
+            ];
+            $visibleAcademicLinks = array_filter($academicLinks, fn ($l) => auth()->user()->hasPermissionInCompany($l['perm'], $currentCompany));
+        @endphp
+
+        @if(count($visibleAcademicLinks))
+            <div class="sidebar-section-title mt-4">Académico</div>
+            <ul class="nav flex-column gap-1">
+                @foreach($visibleAcademicLinks as $link)
+                    <li class="nav-item">
+                        <a class="nav-link app-link {{ request()->routeIs($link['route'].'.*') ? 'active' : '' }}" href="{{ route($link['route'].'.index') }}">
+                            <i class="bi {{ $link['icon'] }}"></i> {{ $link['label'] }}
+                        </a>
+                    </li>
+                @endforeach
+            </ul>
+        @endif
     </aside>
 
     <main class="app-main">
@@ -173,6 +198,12 @@
                 <li><a class="nav-link app-link {{ request()->routeIs('cargos.*') ? 'active' : '' }}" href="{{ route('cargos.index') }}">Cargos</a></li>
                 <li><a class="nav-link app-link {{ request()->routeIs('personal.*') ? 'active' : '' }}" href="{{ route('personal.index') }}">Personal</a></li>
                 <li><a class="nav-link app-link {{ request()->routeIs('branches.*') ? 'active' : '' }}" href="{{ route('branches.index') }}">Sucursales</a></li>
+                @if(count($visibleAcademicLinks))
+                    <li class="sidebar-section-title mt-3">Académico</li>
+                    @foreach($visibleAcademicLinks as $link)
+                        <li><a class="nav-link app-link {{ request()->routeIs($link['route'].'.*') ? 'active' : '' }}" href="{{ route($link['route'].'.index') }}">{{ $link['label'] }}</a></li>
+                    @endforeach
+                @endif
             </ul>
         </nav>
     </div>
